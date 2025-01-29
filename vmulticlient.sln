@@ -1,12 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vmulticlient", "client\vmulticlient.vcproj", "{CA3F49EF-F69C-46A0-A6BF-84F477255A5C}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.35706.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vmulticlient", "client\vmulticlient.vcxproj", "{CA3F49EF-F69C-46A0-A6BF-84F477255A5C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testvmulti", "test\testvmulti.vcproj", "{8FB721A1-8820-45BF-AB35-978FADA6C188}"
-	ProjectSection(ProjectDependencies) = postProject
-		{CA3F49EF-F69C-46A0-A6BF-84F477255A5C} = {CA3F49EF-F69C-46A0-A6BF-84F477255A5C}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testvmulti", "test\testvmulti.vcxproj", "{8FB721A1-8820-45BF-AB35-978FADA6C188}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89B0CD05-1750-4EAD-80DE-47CA75B4D328}
 	EndGlobalSection
 EndGlobal

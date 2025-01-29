@@ -1,7 +1,14 @@
+#define WINVER 0x0A00
+#define _WIN32_WINNT 0x0A00
+#define INITGUID
+#define INC_OLE2  // Ensure OLE2 definitions are included
+
 #include <windows.h>
+#include <oleauto.h>  // Required for VARIANT_BOOL
+#include <objbase.h>  // Required for COM-related types
+
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "vmulticlient.h"
 
 //
@@ -116,40 +123,43 @@ SendHidRequests(
             //
             
             BYTE i;
-            BYTE actualCount = 4; // set whatever number you want, lower than MULTI_MAX_COUNT
+            BYTE actualCount = 1; // set whatever number you want, lower than MULTI_MAX_COUNT
+			BOOLEAN press_once = actualCount == 1;
+			if (actualCount == 1) {
+				actualCount = 2;
+			}
+
             PTOUCH pTouch = (PTOUCH)malloc(actualCount * sizeof(TOUCH));
 
             printf("Sending multitouch report\n");
-            Sleep(3000);
+            Sleep(1000);
 
-            for (i = 0; i < actualCount; i++)
-            {
-                pTouch[i].ContactID = i;
-                pTouch[i].Status = MULTI_CONFIDENCE_BIT | MULTI_IN_RANGE_BIT | MULTI_TIPSWITCH_BIT;
-                pTouch[i].XValue = (i + 1) * 1000;
-                pTouch[i].YValue = (i + 1) * 1500 + 5000;
-                pTouch[i].Width = 20;
-                pTouch[i].Height = 30;
-            }
+			while (1) {
+				if (press_once) {
+					pTouch[0].ContactID = 0;
+					pTouch[0].Status = MULTI_CONFIDENCE_BIT | MULTI_IN_RANGE_BIT | MULTI_TIPSWITCH_BIT;
+					pTouch[0].XValue = (0 + 1) * 1000;
+					pTouch[0].YValue = (0 + 1) * 1500 + 5000;
+					pTouch[0].Width = 10;
+					pTouch[0].Height = 10;
+					pTouch[1] = pTouch[0]; // Copy first touch data
+					pTouch[1].ContactID = 1; // Ensure unique ID
 
-            if (!vmulti_update_multitouch(vmulti, pTouch, actualCount))
-              printf("vmulti_update_multitouch TOUCH_DOWN FAILED\n");
-              
-            for (i = 0; i < actualCount; i++)
-            {
-                pTouch[i].XValue += 1000;
-                pTouch[i].YValue += 1000;
-            }              
+					if (!vmulti_update_multitouch(vmulti, pTouch, actualCount))
+						printf("vmulti_update_multitouch TOUCH_DOWN FAILED\n");
 
-            if (!vmulti_update_multitouch(vmulti, pTouch, actualCount))
-                printf("vmulti_update_multitouch TOUCH_MOVE FAILED\n");
+					Sleep(500); // Wait for 0.5 seconds
 
-            for (i = 0; i < actualCount; i++)
-              pTouch[i].Status = 0;
+					pTouch[0].Status = 0;   // Lift fingers (TOUCH UP)
+					pTouch[1].Status = 0;
 
-            if (!vmulti_update_multitouch(vmulti, pTouch, actualCount))
-                printf("vmulti_update_multitouch TOUCH_UP FAILED\n");
-                        
+					if (!vmulti_update_multitouch(vmulti, pTouch, actualCount))
+						printf("vmulti_update_multitouch TOUCH_UP FAILED\n");
+
+					Sleep(500); // Wait for 0.5 seconds before repeating
+				}
+			}
+            
             free(pTouch);
             
             break;
@@ -160,7 +170,15 @@ SendHidRequests(
             // Send the mouse report
             //
             printf("Sending mouse report\n");
-            vmulti_update_mouse(vmulti, 0, 1000, 10000, 0);
+			printf("Pressed 1000, 10000");
+            vmulti_update_mouse(vmulti, 1, 1000, 10000, 0);
+			Sleep(100);
+			vmulti_update_mouse(vmulti, 0, 1000, 10000, 0);
+			Sleep(50);
+			vmulti_update_mouse(vmulti, 1, 1000, 10000, 0);
+			Sleep(50);
+			vmulti_update_mouse(vmulti, 0, 1000, 10000, 0);
+
             break;
 
         case REPORTID_DIGI:

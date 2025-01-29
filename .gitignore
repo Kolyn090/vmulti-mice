@@ -1,0 +1,103 @@
+# Ignore Visual Studio specific files
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+*.suo
+*.ncb
+*.user
+*.lce
+*.pdb
+*.ipch
+*.tlog
+*.log
+*.ilk
+*.obj
+*.pch
+*.idb
+*.o
+*.sdf
+*.exp
+*.aps
+*.plg
+*.res
+*.rsp
+*.map
+*.dbg
+*.iobj
+*.ipdb
+*.opendb
+*.opensdf
+*.tlog
+*.vc.db
+*.cache
+*.pfx
+*.psess
+*.pyc
+
+# Ignore Visual Studio Code workspace settings
+.vscode/
+
+# Ignore driver build artifacts
+build/
+Debug/
+Release/
+x64/
+x86/
+ARM/
+ARM64/
+Win32/
+obj/
+output/
+bin/
+lib/
+*.sys
+*.inf
+*.cat
+*.cab
+*.dll
+*.efi
+*.lib
+*.exp
+*.bsc
+*.bsc
+
+# Ignore Windows driver test logs
+wdkbuild/
+wdklogs/
+driver.log
+driver.pdb
+driver.xml
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.swn
+~$*
+
+# Ignore Windows crash dump files
+*.dmp
+*.mdmp
+
+# Ignore private key files
+*.snk
+*.cer
+*.pfx
+*.crt
+*.pem
+*.key
+
+# Ignore NuGet packages
+*.nupkg
+packages/
+.nuget/
+project.lock.json
+
+# Binary Executables
+*.exe
+
+# Auto Generated
+UpgradeLog.htm
+_objects.mac
