@@ -101,3 +101,8 @@ project.lock.json
 # Auto Generated
 UpgradeLog.htm
 _objects.mac
+*.err
+build_log.txt
+Backup
+build_logs
+objfre_win7_amd64
