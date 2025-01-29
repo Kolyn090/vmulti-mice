@@ -31,8 +31,7 @@ Usage(void)
     printf("Usage: testvmulti </multitouch | /mouse | /digitizer | /joystick | /keyboard | /message>\n");
 }
 
-INT __cdecl
-main(
+INT main(
     int argc,
     PCHAR argv[]
     )
@@ -144,6 +143,8 @@ SendHidRequests(
 					pTouch[0].Height = 10;
 					pTouch[1] = pTouch[0]; // Copy first touch data
 					pTouch[1].ContactID = 1; // Ensure unique ID
+
+					printf("x: %d, y: %d", pTouch[0].XValue, pTouch[0].YValue);
 
 					if (!vmulti_update_multitouch(vmulti, pTouch, actualCount))
 						printf("vmulti_update_multitouch TOUCH_DOWN FAILED\n");
