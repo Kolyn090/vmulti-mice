@@ -49,16 +49,16 @@ class Mouse:
         :param press_duration: time spend on a click (in seconds)
         :return:
         """
-        self._mouse_c.vmulti_connect(self._client)
-        self._mouse_c.click(self._client, x, y, touch_width, touch_height, press_duration)
-        self._mouse_c.vmulti_disconnect(self._client)
+        if self._mouse_c.vmulti_connect(self._client):
+            self._mouse_c.click(self._client, x, y, touch_width, touch_height, press_duration)
 
     def free(self):
         """
-        Free the vmulti client if it exists.
+        Disconnect and free the vmulti client if it exists.
         :return:
         """
         if self._client:
+            self._mouse_c.vmulti_disconnect(self._client)
             self._mouse_c.vmulti_free(self._client)  # Free the client
             self._client = None  # Avoid double freeing
 
