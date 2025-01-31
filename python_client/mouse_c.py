@@ -8,7 +8,7 @@ This script interacts with system-level drivers using VMulti.
 REQUIREMENT:
 - Windows XP or later, Windows 7 or later (Tested on Windows 11)
 - 32bit Python
-- Visual Studio 15.0 (2017) for compling
+- Visual Studio 2015 (2017) for development
 
 :author: Kolyn090, djpnewton(driver, test client code provider)
 :email: kolynlin@protonmail.com
@@ -28,7 +28,7 @@ class Mouse_C:
     generate a new mice.dll file under vmulti-mice/Debug. This class loads that .dll
     file in order to use the C code. For simplicity, you can use mouse.py instead.
     """
-    def __init__(self, dll_path='../Debug/mice.dll'):
+    def __init__(self, dll_path='../DLL/mice.dll'):
         self._vmulti_lib = ctypes.WinDLL(dll_path)
 
         # pvmulti_client CreateVmultiClient()

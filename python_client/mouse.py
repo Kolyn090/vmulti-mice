@@ -8,7 +8,7 @@ This script interacts with system-level drivers using VMulti.
 REQUIREMENT:
 - Windows XP or later, Windows 7 or later (Tested on Windows 11)
 - 32bit Python
-- Visual Studio 15.0 (2017) for compling
+- Visual Studio 2015 (2017) for development
 
 :author: Kolyn090, djpnewton(driver, test client code provider)
 :email: kolynlin@protonmail.com
@@ -26,7 +26,7 @@ class Mouse:
     This class instantiates a vmulti client instance as a property. Use context manager (with)
     if you do not want to manually free the space.
     """
-    def __init__(self, dll_path='../Debug/mice.dll'):
+    def __init__(self, dll_path='../DLL/mice.dll'):
         self._mouse_c = Mouse_C(dll_path)
         self._client = self._mouse_c.vmulti_alloc()
 
