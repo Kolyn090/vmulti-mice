@@ -106,3 +106,5 @@ build_log.txt
 Backup
 build_logs
 objfre_win7_amd64
+.idea
+.venv

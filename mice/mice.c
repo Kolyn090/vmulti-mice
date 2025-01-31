@@ -19,6 +19,11 @@ __declspec(dllexport) pvmulti_client
 VmultiAlloc();
 
 __declspec(dllexport) VOID
+VmultiConnect(
+	pvmulti_client vmulti
+);
+
+__declspec(dllexport) VOID
 VmultiDisconnect(
 	pvmulti_client vmulti
 );
@@ -99,6 +104,11 @@ VmultiAlloc() {
 }
 
 __declspec(dllexport) VOID
+VmultiConnect(vmulti) {
+	return vmulti_connect(vmulti);
+}
+
+__declspec(dllexport) VOID
 VmultiDisconnect(vmulti) {
 	vmulti_disconnect(vmulti);
 }
@@ -156,11 +166,11 @@ Click(
 	memcpy(&pTouch[1], &pTouch[0], sizeof(TOUCH));
 	pTouch[1].ContactID = 1; // Ensure unique ID
 
-	printf("x: %d, y: %d\n", pTouch[0].XValue, pTouch[0].YValue);
+	// printf("x: %d, y: %d\n", pTouch[0].XValue, pTouch[0].YValue);
 	if (!vmulti_update_multitouch(vmulti, pTouch, 2))
 		printf("vmulti_update_multitouch TOUCH_DOWN FAILED\n");
-		free(pTouch); // Free memory before returning
-		return;
+	free(pTouch); // Free memory before returning
+	return;
 
 	Sleep(pressDuration); // Sleep for pressDuration milliseconds
 
@@ -169,6 +179,6 @@ Click(
 
 	if (!vmulti_update_multitouch(vmulti, pTouch, 2))
 		printf("vmulti_update_multitouch TOUCH_UP FAILED\n");
-	
+
 	free(pTouch);
 }
