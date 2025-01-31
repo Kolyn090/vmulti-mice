@@ -54,7 +54,6 @@ lib/
 *.inf
 *.cat
 *.cab
-*.dll
 *.efi
 *.lib
 *.exp
