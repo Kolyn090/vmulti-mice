@@ -29,6 +29,7 @@ class Mouse:
     def __init__(self, dll_path='../DLL/mice.dll'):
         self._mouse_c = Mouse_C(dll_path)
         self._client = self._mouse_c.vmulti_alloc()
+        self._has_connected = False
 
     def click(self, x, y, touch_width=10, touch_height=10, press_duration=0.5):
         """
@@ -49,7 +50,12 @@ class Mouse:
         :param press_duration: time spend on a click (in seconds)
         :return:
         """
-        if self._mouse_c.vmulti_connect(self._client):
+        connection = True
+        if not self._has_connected:
+            connection = self._mouse_c.vmulti_connect(self._client)
+            self._has_connected = True
+
+        if connection:
             self._mouse_c.click(self._client, x, y, touch_width, touch_height, press_duration)
 
     def free(self):
